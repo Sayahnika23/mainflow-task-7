@@ -1,0 +1,25 @@
+#Task 48: Find the Longest Palindromic Substring
+def longest_palindromic_substring(s):
+    def expand_around_center(left, right):
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+        return s[left + 1:right]  # Return the palindrome found
+
+    longest = ""
+    for i in range(len(s)):
+        # Odd-length palindrome
+        p1 = expand_around_center(i, i)
+        # Even-length palindrome
+        p2 = expand_around_center(i, i + 1)
+        # Update longest palindrome found
+        longest = max(longest, p1, p2, key=len)
+
+    return longest
+
+# User input
+s = input("Enter a string: ")
+print("Longest Palindromic Substring:", longest_palindromic_substring(s))
+
+Enter a string:  babad
+Longest Palindromic Substring: bab
