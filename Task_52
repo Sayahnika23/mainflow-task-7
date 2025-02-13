@@ -1,0 +1,23 @@
+#Task 52: Find All Valid Parentheses Combinations
+def generate_parentheses(n, current="", open_count=0, close_count=0, result=None):
+    if result is None:
+        result = []
+
+    if len(current) == 2 * n:
+        result.append(current)
+        return result
+
+    if open_count < n:
+        generate_parentheses(n, current + "(", open_count + 1, close_count, result)
+
+    if close_count < open_count:
+        generate_parentheses(n, current + ")", open_count, close_count + 1, result)
+
+    return result
+
+# Example usage
+n = int(input("Enter the number of pairs of parentheses: "))
+print("Valid parentheses combinations:", generate_parentheses(n))
+
+Enter the number of pairs of parentheses:  3
+Valid parentheses combinations: ['((()))', '(()())', '(())()', '()(())', '()()()']
