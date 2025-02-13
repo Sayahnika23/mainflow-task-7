@@ -1,0 +1,42 @@
+#Task 7: Personal Budget Advisor
+class BudgetAdvisor:
+    def __init__(self):
+        self.transactions = []
+
+    def add_transaction(self, amount, category):
+        self.transactions.append((amount, category))
+
+    def calculate_totals(self):
+        income = sum(amount for amount, cat in self.transactions if amount > 0)
+        expenses = sum(-amount for amount, cat in self.transactions if amount < 0)
+        return income, expenses
+
+    def suggest_savings(self):
+        income, expenses = self.calculate_totals()
+        if income == 0:
+            return "No income recorded. Please add income to analyze budget."
+        savings = income - expenses
+        advice = "Great! You are saving well. 🎯" if savings > 0 else "Try reducing unnecessary expenses. 📉"
+        return f"Total Income: ₹{income}, Total Expenses: ₹{expenses}, Savings: ₹{savings}. {advice}"
+
+    def display_summary(self):
+        print("\n💰 Budget Summary 💰")
+        income, expenses = self.calculate_totals()
+        print(f"Total Income: ₹{income}")
+        print(f"Total Expenses: ₹{expenses}")
+        print(f"Suggested Advice: {self.suggest_savings()}")
+
+# Example usage:
+advisor = BudgetAdvisor()
+advisor.add_transaction(50000, "Salary")  # Income
+advisor.add_transaction(-15000, "Rent")   # Expense
+advisor.add_transaction(-8000, "Groceries")  # Expense
+advisor.add_transaction(-3000, "Entertainment")  # Expense
+advisor.add_transaction(-5000, "Shopping")  # Expense
+
+advisor.display_summary()
+
+💰 Budget Summary 💰
+Total Income: ₹50000
+Total Expenses: ₹31000
+Suggested Advice: Total Income: ₹50000, Total Expenses: ₹31000, Savings: ₹19000. Great! You are saving well. 🎯
